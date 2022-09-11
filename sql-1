@@ -1,0 +1,59 @@
+import mysql.connector as sqltor
+
+mycon = sqltor.connect(host="localhost", user="root", password="pwd", database='---')
+while True:
+    ask = int(input('''Enter what function would u want to use:
+    1 ==) create new table
+    2 ==) delete table :'''))
+    cursor = mycon.cursor()
+
+    # creating a table
+    if ask == 1:
+        tname = input('Enter the table name to be created:')
+        col_num = int(input('Enter the number of columns in the table:'))
+        col_list = []
+        for i in range(1, col_num + 1):
+            col_name = input('Enter the column {} name:'.format(i))
+            col_list = col_list + [col_name]
+        print(col_list)
+        dt_list = []
+        for j in col_list:
+            dt = input('Enter the datatype for "{}" coloumn :'.format(j))
+            dt_list = dt_list + [dt]
+        print(dt_list)
+        con_list = []
+        for k in col_list:
+            con = input('Enter the constraint for "{}" coloumn :'.format(k))
+            con_list = con_list + [con]
+            print(con_list)
+
+        q1_1 = 'create table ' + tname + ' ('
+        count = 0
+        while count < len(dt_list):
+            q1_2 = str(col_list[count]) + ' ' + str(dt_list[count]) + ' ' + str(con_list[count]) +','
+            q1_1 += q1_2
+            count += 1
+        q1_1 += ')'
+        q1 = q1_1[0:-2] + q1_1[-1]
+        print(q1)
+
+        cursor.execute(q1)
+
+    #drop table
+    if ask == 2:
+        cursor.execute('SHOW TABLES')
+        for tn in cursor:
+            print(tn)
+        del_table = input('Enter the table name to be deleted:')
+        q2 = 'DROP TABLE IF EXISTS ' + del_table
+        print(q2)
+        cursor.execute(q2)
+
+    #loop
+    continuity = input('Do you want to continue [y/n] :')
+    if continuity.capitalize() == 'Y':
+        continue
+    if continuity.capitalize() == 'N':
+        print('TERMINATING...!!!')
+        break
+
