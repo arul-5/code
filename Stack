@@ -1,0 +1,52 @@
+def push(stack):
+    num = int(input('Enter the number of elements should be added:'))
+    for i in range(1, num + 1):
+        ele = input('Enter element ' + str(i) + ': ')
+        stack.append(ele)
+    print('Stack after adding elements is :')
+    print(stack)
+
+
+def pop(stack):
+    if len(stack):
+        pop_item = stack.pop()
+        print('The popped element is :',pop_item)
+    else:
+        return None
+
+
+def peek(stack):
+    if len(stack):
+        print('The last element of the stack is: ',stack[-1])
+    else:
+        return None
+
+
+def display(stack):
+    stack.reverse()
+    if len(stack):
+        for i in stack:
+            print(i)
+    else:
+        print(None)
+#main
+stk =[]
+while True:
+    fun = int(input('''
+1 ==) Push
+2 ==) Pop
+3 ==) Peek
+4 ==) Display
+5 ==) Exit
+Enter the required function : '''))
+    if fun == 1:
+        push(stk)
+    if fun == 2:
+        pop(stk)
+    if fun == 3:
+        print(peek(stk))
+    if fun == 4:
+        display(stk)
+    if fun == 5:
+        print('TERMINATING !')
+        break
